@@ -64,6 +64,9 @@ const data = {
     },
   },
 };
+// const date = data.response.data.NM372.races[data.response.data.NM372.races.length-1];
+// const obj = new Date(date.date);
+// console.log(obj.getDate());
 
 // Only edit below this comment
 
@@ -79,7 +82,10 @@ const createHtml = (athlete) => {
 
   const list = document.createElement('dl');
 
-  const day = date.getDate();
+  const lastRace = races[races.length-1]; // last object of the races
+  const dateObj = new Date(lastRace.date); // convert date string to date object
+  
+  const day = lastRace.date.getDate();
   const month = MONTHS[date.month];
   const year = date.year;
 

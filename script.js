@@ -73,11 +73,11 @@ const createHtml = (athlete) => {
 
   const fragment = document.createDocumentFragment();
 
-  title = document.createElement(h2);
-  title= id;
+  const title = document.createElement('h2');
+  title.textContent= id;
   fragment.appendChild(title);
 
-  const list = document.createElement(dl);
+  const list = document.createElement('dl');
 
   const day = date.getDate();
   const month = MONTHS[date.month];

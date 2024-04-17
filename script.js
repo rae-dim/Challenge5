@@ -13,7 +13,7 @@ const MONTHS = [
   'Oct',
   'Nov',
   'Dec',
-]
+];
 
 const data = {
   response: {
@@ -68,16 +68,16 @@ const data = {
 // Only edit below this comment
 
 const createHtml = (athlete) => {
-  firstName, surname, id, races = athlete
-  [date], [time] = races.reverse()
+  const {firstName, surname, id, races}= data.response.data.athlete;  // get values for each variable
+
 
   const fragment = document.createDocumentFragment();
 
-  title = document.createElement(h2);
-  title= id;
+  const title = document.createElement('h2');
+  title.textContent= id;
   fragment.appendChild(title);
 
-  const list = document.createElement(dl);
+  const list = document.createElement('dl');
 
   const day = date.getDate();
   const month = MONTHS[date.month];
@@ -89,7 +89,7 @@ const createHtml = (athlete) => {
   const hours = total / 60;
   const minutes = total / hours / 60;
 
-  list.innerHTML = /* html */ `
+  list.innerHTML = `
     <dt>Athlete</dt>
     <dd>${firstName surname}</dd>
 

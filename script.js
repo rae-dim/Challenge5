@@ -32,7 +32,7 @@ const data = {
             time: [9, 7, 8, 6],
           },
           {
-            date: '2022-12-02T20:00:00.000Z',
+            date: '2022-01-02T20:00:00.000Z',
             time: [6, 7, 8, 7],
           },
         ],
@@ -64,6 +64,10 @@ const data = {
     },
   },
 };
+// const date = data.response.data.NM372.races[data.response.data.NM372.races.length-1];
+// const obj = new Date(date.date);
+// console.log(obj.getDate());
+// console.log(obj.getMonth());
 
 // Only edit below this comment
 
@@ -79,33 +83,38 @@ const createHtml = (athlete) => {
 
   const list = document.createElement('dl');
 
-  const day = date.getDate();
-  const month = MONTHS[date.month];
-  const year = date.year;
+  const lastRace = races[races.length-1]; // last object of the races
+  const dateObj = new Date(lastRace.date); // convert date string to date object
+  
+  const day = dateObj.getDate();  // get day e.g 2
+  const month = MONTHS[dateObj.getMonth()]; // use month as key = 1 - to get shortened month name
+  const year = dateObj.getFullYear(); /// get year 
 
-  first, second, third, fourth = timeAsArray;
-  total = first + second + third + fourth;
+  const {first, second, third, fourth} = lastRace.time; // destructuring array
+  const total = first + second + third + fourth; // added const 
 
   const hours = total / 60;
   const minutes = total / hours / 60;
 
-  list.innerHTML = `
-    <dt>Athlete</dt>
-    <dd>${firstName surname}</dd>
 
-    <dt>Total Races</dt>
-    <dd>${races}</dd>
+  list.innerHTML = /* html */ `
+  <dt>Athlete</dt>
+  <dd>${firstName}, ${surname}</dd>
 
-    <dt>Event Date (Latest)</dt>
-    <dd>${day month year}</dd>
+  <dt>Total Races</dt>
+  <dd>${races}</dd>
 
-    <dt>Total Time (Latest)</dt>
-    <dd>${hours.padStart(2, 0) minutes}</dd>
-  `;
+  <dt>Event Date (Latest)</dt>
+  <dd>${day}:${month}:${year}</dd>
+
+  <dt>Total Time (Latest)</dt>
+  <dd>${hours.padStart(2, 0)}:${minutes}</dd>
+`;
 
   fragment.appendChild(list);
 }
 
-[NM372], [SV782] = data
-document.querySelector(NM372).appendChild(createHtml(NM372));
-document.querySelector(SV782).appendChild(createHtml(SV782));
+
+const {NM372, SV782} = data
+document.querySelector('section[data-athlete="NM372"]').appendChild(createHtml(NM372));
+document.querySelector('section[data-athlete="SV782"]').appendChild(createHtml(SV782));
